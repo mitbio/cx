@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Download unique contact information in VCF format">
+  <title>Download Contact</title>
+
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="page-title">Go To Dashboard</h1>
+    <form id="downloadForm" class="form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" class="input-field" placeholder="Enter your Name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="input-field" placeholder="Enter your Email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" class="input-field" placeholder="Enter your phone number"required>
+      </div>
+      <button type="submit" class="submit-button"id="submit">Signup/Login</button>
+    </form>
+  </div>
+
+  <div id="toast" class="toast hidden">
+    <p id="toastMessage">Your unique contact has been generated and downloaded.</p>
+  </div>
+	<style>
+				/* General Styles */
+			* {
+			  margin: 0;
+			  padding: 0;
+			  box-sizing: border-box;
+			}
+
+			body {
+			  font-family: 'Georgia', serif;
+			  background-color: #f4f4f9;
+			  color: #333;
+			}
+
+			.container {
+			  max-width: 500px;
+			  margin: 80px auto;
+			  padding: 40px;
+			  background-color: #fff;
+			  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			  border-radius: 10px;
+			  animation: fadeIn 1.5s ease-in-out;
+			}
+
+			.page-title {
+			  text-align: center;
+			  font-size: 2em;
+			  margin-bottom: 20px;
+			  color: #1a1a1a;
+			  font-weight: 700;
+			}
+
+			.form-group {
+			  margin-bottom: 20px;
+			}
+
+			label {
+			  font-size: 1.1em;
+			  font-weight: bold;
+			  color: #555;
+			  display: block;
+			  margin-bottom: 8px;
+			}
+
+			.input-field {
+			  width: 100%;
+			  padding: 12px;
+			  font-size: 1em;
+			  border: 1px solid #ccc;
+			  border-radius: 5px;
+			  transition: all 0.3s ease;
+			}
+
+			.input-field:focus {
+			  border-color: #007bff;
+			  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+			  outline: none;
+			}
+
+			.submit-button {
+			  width: 100%;
+			  padding: 15px;
+			  background-color: #007bff;
+			  color: white;
+			  font-size: 1.2em;
+			  border: none;
+			  border-radius: 5px;
+			  cursor: pointer;
+			  transition: all 0.3s ease;
+			}
+
+			.submit-button:hover {
+			  background-color: #0056b3;
+			  transform: translateY(-3px);
+			  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+			}
+
+			/* Toast Notification Styles */
+			.toast {
+			  position: fixed;
+			  bottom: 20px;
+			  right: 20px;
+			  background-color: #007bff;
+			  color: white;
+			  padding: 15px;
+			  border-radius: 5px;
+			  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+			  opacity: 0;
+			  transform: translateY(30px);
+			  transition: opacity 0.5s ease, transform 0.5s ease;
+			}
+
+			.toast.show {
+			  opacity: 1;
+			  transform: translateY(0);
+			}
+
+			.toast.hidden {
+			  display: none;
+			}
+
+			/* Animations */
+			@keyframes fadeIn {
+			  0% {
+				opacity: 0;
+				transform: translateY(-20px);
+			  }
+			  100% {
+				opacity: 1;
+				transform: translateY(0);
+			  }
+			}
+
+	
+	
+	</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const lastSignup = localStorage.getItem("lastSignup");
+  const twoWeeks = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
+
+  if (lastSignup && Date.now() - parseInt(lastSignup) < twoWeeks) {
+    window.location.href = "file:///C:/Users/USER/Documents/new 11.html"; // Redirect if still within two weeks
+  }
+});
+
+document.getElementById("downloadForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+
+  if (!name || !phone || !email) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbz37SneNttAQ0xa9lPPhqN0Z6CA90Mtz5HPNsPKQa0PwntQyBt6w5k4ZLrU4SYq3c0Keg/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "signup", name, phone, email }),
+  })
+    .then((res) => res.text())
+    .then((data) => {
+      if (data === "Signup Successful!") {
+        localStorage.setItem("userPhone", phone);
+        localStorage.setItem("lastSignup", Date.now().toString()); // Store signup time
+        
+        // Show success toast
+        const toast = document.getElementById("toast");
+        document.getElementById("toastMessage").innerText = "Signup successful! Redirecting...";
+        toast.classList.remove("hidden");
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+          toast.classList.add("hidden");
+          window.location.href = "file:///C:/Users/USER/Documents/new 11.html"; // Redirect to dashboard
+        }, 2000);
+      } else {
+        alert(data);
+      }
+    })
+    .catch((err) => console.error(err));
+});
+
+  </script>
+</body>
+
+</html>
