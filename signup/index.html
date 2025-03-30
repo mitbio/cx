@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const twoWeeks = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
 
   if (lastSignup && Date.now() - parseInt(lastSignup) < twoWeeks) {
-    window.location.href = "file:///C:/Users/USER/Documents/new 11.html"; // Redirect if still within two weeks
+    window.location.href = "../dashboard"; // Redirect if still within two weeks
   }
 });
 
@@ -190,7 +190,7 @@ document.getElementById("downloadForm").addEventListener("submit", function (e) 
         setTimeout(() => {
           toast.classList.remove("show");
           toast.classList.add("hidden");
-          window.location.href = "file:///C:/Users/USER/Documents/new 11.html"; // Redirect to dashboard
+          window.location.href = "../dashboard"; // Redirect to dashboard
         }, 2000);
       } else {
         alert(data);
