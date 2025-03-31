@@ -170,7 +170,7 @@ document.getElementById("downloadForm").addEventListener("submit", function (e) 
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbz37SneNttAQ0xa9lPPhqN0Z6CA90Mtz5HPNsPKQa0PwntQyBt6w5k4ZLrU4SYq3c0Keg/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwVOgymdl0QvyHm5-ib6cJ3DN475QwafQj5ePyFPV5G22BcdpjC1DEcpfMiVwVqyX0-Uw/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ action: "signup", name, phone, email }),
