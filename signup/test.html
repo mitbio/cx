@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link in Bio Page</title>
+
+</head>
+<body>
+<script>
+  
+  fetch("https://script.google.com/macros/s/AKfycbxSEwEqvGjd8MSmKx3EUBq-JyQuLRI5swXQGZTYqFJ1i3LS8zPhENsuSRZwEkGMIaZC/exec", {
+  method: "POST",
+  mode: "cors", // Enable CORS
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    action: "signup",
+    email: "test@example.com",
+    name: "Test User",
+    phone: "1234567890"
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+</script>
+  
+</body>
+</html>
